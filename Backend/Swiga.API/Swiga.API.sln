@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36212.18 d17.14
+VisualStudioVersion = 17.14.36212.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swiga.API", "Swiga.API\Swiga.API.csproj", "{23D1B6B7-0117-41FF-A1A7-5E6237BF109E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swiga.Domain", "Swiga.Domain\Swiga.Domain.csproj", "{3CDC4295-BFEB-4238-97D2-0DDFE1206CC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swiga.Infrastructure", "Swiga.Infrastructure\Swiga.Infrastructure.csproj", "{640A97CC-9F3D-4108-81EA-31D2E232B2C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swiga.Application", "Swiga.Application\Swiga.Application.csproj", "{6D8B5B81-E7A3-4243-BCBE-A32FE409B423}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{23D1B6B7-0117-41FF-A1A7-5E6237BF109E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23D1B6B7-0117-41FF-A1A7-5E6237BF109E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23D1B6B7-0117-41FF-A1A7-5E6237BF109E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CDC4295-BFEB-4238-97D2-0DDFE1206CC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CDC4295-BFEB-4238-97D2-0DDFE1206CC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CDC4295-BFEB-4238-97D2-0DDFE1206CC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CDC4295-BFEB-4238-97D2-0DDFE1206CC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{640A97CC-9F3D-4108-81EA-31D2E232B2C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{640A97CC-9F3D-4108-81EA-31D2E232B2C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{640A97CC-9F3D-4108-81EA-31D2E232B2C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{640A97CC-9F3D-4108-81EA-31D2E232B2C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D8B5B81-E7A3-4243-BCBE-A32FE409B423}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D8B5B81-E7A3-4243-BCBE-A32FE409B423}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D8B5B81-E7A3-4243-BCBE-A32FE409B423}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D8B5B81-E7A3-4243-BCBE-A32FE409B423}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
