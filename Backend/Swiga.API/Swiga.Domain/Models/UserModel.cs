@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Swiga.Domain.Models
 {
-    public class UserModel
+    public abstract class UserModel
     {
         public Guid Id { get; set; }
         public string Email { get; set; }

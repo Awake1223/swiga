@@ -31,4 +31,7 @@
 {4,"_$Data$_.Delete",14},
 {4,"_$Transaction$_.Rollback",15},
 {4,"_$PerformError$_",16},
-{3,"1CV8",4}
+{3,"1CV8",4},
+{4,"_$Job$_.Start",17},
+{4,"_$Job$_.Finish",18},
+{4,"_$InfoBase$_.DBConfigUpdateError",19}
