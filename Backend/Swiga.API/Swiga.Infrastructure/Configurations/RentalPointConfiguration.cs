@@ -12,6 +12,12 @@ namespace Swiga.Infrastructure.Configurations
         public void Configure (EntityTypeBuilder<RentalPointModel> builder)
         {
             builder.HasKey(r => r.Id);
+
+            builder.Property(r => r.Name); 
+            builder.Property(r => r.Address);
+            builder.Property(r => r.City);
+            builder.Property(r => r.PhoneNumber);
+            builder.Property(r => r.Email);
         }
     }
 }
