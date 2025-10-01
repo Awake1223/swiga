@@ -13,5 +13,20 @@ namespace Swiga.Domain.Models
         public DateOnly? DateOfBirth { get; set; }
         public string? PassportData { get; set; }
         public string? DriverLicense { get; set; }
+
+
+        // Конструктор ClientModel
+        public ClientModel(string firstName, string lastName, string email, string phoneNumber, string password)
+            : base(Guid.NewGuid(), email, phoneNumber, password, DateTime.UtcNow, Role.Client) // ← вызов базового конструктора
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
+
+        public static ClientModel Create(string firstName, string lastName, string email, string phoneNumber, string password)
+        {
+            return new ClientModel(firstName, lastName, email, phoneNumber, password);
+        }
     }
 }
+
