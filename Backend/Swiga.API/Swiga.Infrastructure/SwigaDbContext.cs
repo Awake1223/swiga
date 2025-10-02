@@ -14,9 +14,7 @@ namespace Swiga.Infrastructure
         public DbSet<ClientModel> Clients  { get; set; }
         public DbSet<InventoryModel> Inventories { get; set; }
         public DbSet<RentalPointModel> RentalPoints { get; set; }
-        
-    
-    
+
 
     }
 }
