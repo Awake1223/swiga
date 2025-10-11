@@ -6,50 +6,42 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Swiga.Domain.Models;
+using Swiga.Infrastructure.Entity;
 
 
 namespace Swiga.Infrastructure.Configurations
 {
-    public class UserConfiguration : IEntityTypeConfiguration<UserModel> 
+    public class UserConfiguration : IEntityTypeConfiguration<UserEntity>
     {
-        public void Configure(EntityTypeBuilder<UserModel> builder)
+        public void Configure(EntityTypeBuilder<UserEntity> builder)
         {
             builder.HasKey(u => u.Id);
-            builder.Property(u => u.Email).IsRequired();
-            builder.Property(u => u.Password).IsRequired();
-            builder.Property(u => u.PhoneNumber).IsRequired();
-            builder.Property(u => u.CreatedAt).IsRequired();
-            builder.Property(u => u.Role).IsRequired();
-       
-            builder.HasDiscriminator<Role>(nameof(UserModel.Role))
-                .HasValue<AdminModel>(Role.Admin)
-                .HasValue<ClientModel>(Role.Client);
 
-            builder.Property<string>("FullName")
-                .IsRequired(false);
+            builder.Property(u => u.Email)
+                .IsRequired()
+                .HasMaxLength(255);
 
-            builder.Property<Guid>("RentalPointId")
-                .IsRequired(false);  // NOT NULL только для админов
+            builder.Property(u => u.Password)
+                .IsRequired()
+                .HasMaxLength(255);
 
-            // Дополнительные свойства для ClientModel
-            builder.Property<string>("FirstName")
-                 .IsRequired(false); // NOT NULL только для клиентов
+            builder.Property(u => u.PhoneNumber)
+                .IsRequired()
+                .HasMaxLength(20);
 
-            builder.Property<string>("LastName")
-                .IsRequired(false); // NOT NULL только для клиентов
+            builder.Property(u => u.CreatedAt)
+                .IsRequired();
 
-            builder.Property<DateOnly?>("DateOfBirth")
-                .IsRequired(false);
+            builder.Property(u => u.Role)
+                .IsRequired()
+                .HasConversion<string>(); 
 
-            builder.Property<string>("PassportData")
-                .HasMaxLength(100)
-                .IsRequired(false);
+            // Индексы
+            builder.HasIndex(u => u.Email).IsUnique();
+            builder.HasIndex(u => u.PhoneNumber).IsUnique();
 
-            builder.Property<string>("DriverLicense")
-                .HasMaxLength(50)
-                .IsRequired(false);
         }
-
-        
     }
+
 }
+

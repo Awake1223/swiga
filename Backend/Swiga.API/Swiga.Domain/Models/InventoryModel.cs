@@ -25,6 +25,8 @@ namespace Swiga.Domain.Models
             Amount = amount;
         }
 
+    //   public InventoryModel() { }
+
         public static(InventoryModel InventoryModel, string error) Create(Guid id, string name, int size, Gender gender, decimal pricePerHour, int amount)
         {
             var inventory = new InventoryModel(id, name, size, gender, pricePerHour, amount);

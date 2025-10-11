@@ -3,13 +3,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Swiga.Domain.Models;
+using Swiga.Infrastructure.Entity;
 
 
 namespace Swiga.Infrastructure.Configurations
 {
-    public class RentalPointConfiguration : IEntityTypeConfiguration<RentalPointModel>
+    public class RentalPointConfiguration : IEntityTypeConfiguration<RentalPointEntity>
     {
-        public void Configure (EntityTypeBuilder<RentalPointModel> builder)
+        public void Configure (EntityTypeBuilder<RentalPointEntity> builder)
         {
             builder.HasKey(r => r.Id);
 

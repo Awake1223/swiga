@@ -3,13 +3,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Swiga.Domain.Models;
+using Swiga.Infrastructure.Entity;
 
 
 namespace Swiga.Infrastructure.Configurations
 {
-    public class InventoryConfiguration : IEntityTypeConfiguration<InventoryModel>
+    public class InventoryConfiguration : IEntityTypeConfiguration<InventoryEntity>
     {
-        public void Configure(EntityTypeBuilder<InventoryModel> builder)
+        public void Configure(EntityTypeBuilder<InventoryEntity> builder)
         {
             builder.HasKey(i => i.Id);
             builder.Property(i => i.Name).IsRequired();
