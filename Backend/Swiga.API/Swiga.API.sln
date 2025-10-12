@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.14.36212.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swiga.API", "Swiga.API\Swiga.API.csproj", "{23D1B6B7-0117-41FF-A1A7-5E6237BF109E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{640A97CC-9F3D-4108-81EA-31D2E232B2C9} = {640A97CC-9F3D-4108-81EA-31D2E232B2C9}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swiga.Domain", "Swiga.Domain\Swiga.Domain.csproj", "{3CDC4295-BFEB-4238-97D2-0DDFE1206CC6}"
 EndProject

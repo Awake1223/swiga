@@ -29,5 +29,10 @@ namespace Swiga.Infrastructure.Entity
 
         [Required]
         public int Role { get; set; } // Храним как int для БД
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }  
+        public string FullName { get; set; }
+        public Guid? RentalPointId { get; set; }
     }
 }

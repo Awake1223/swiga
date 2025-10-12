@@ -17,7 +17,7 @@ namespace Swiga.Infrastructure.Repositories
         }
 
 
-        public async Task<List<InventoryModel>> Get()
+        public async Task<List<InventoryModel>> GetInventoryAsync()
         {
             var inventoryEntities = await _context.Inventories
                 .AsNoTracking()
@@ -30,7 +30,7 @@ namespace Swiga.Infrastructure.Repositories
             return inventory;
         }
 
-        public async Task<Guid> Create(InventoryModel inventory)
+        public async Task<Guid> CreateInventoryAsync(InventoryModel inventory)
         {
             var inventoryEntity = new InventoryEntity
             {
@@ -48,7 +48,7 @@ namespace Swiga.Infrastructure.Repositories
             return inventoryEntity.Id;
         }
 
-        public async Task<Guid> Update(Guid id, string name, int size, Gender gender, decimal pricePerHour, int amount)
+        public async Task<Guid> UpdateInventoryAsync(Guid id, string name, int size, Gender gender, decimal pricePerHour, int amount)
         {
             await _context.Inventories
                 .Where(i => i.Id == id)
@@ -63,7 +63,7 @@ namespace Swiga.Infrastructure.Repositories
             return id;
         }
 
-        public async Task<Guid> Delete(Guid id)
+        public async Task<Guid> DeleteInventoryAsync(Guid id)
         {
             await _context.Inventories
                 .Where(i => i.Id == id)

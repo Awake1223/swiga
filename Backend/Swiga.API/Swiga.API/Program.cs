@@ -1,11 +1,35 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Swiga.Infrastructure;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Swiga - service for rent inventory ",
+        Version = "v1",
+        Description = "",
+        Contact = new OpenApiContact
+        {
+            Name = "Development Team",
+            Email = "dev@swiga.com"
+        }
+    });
+
+});
+
+builder.Services.AddDbContext<SwigaDbContext>(
+    options =>
+    {
+        options.UseNpgsql(builder.Configuration.GetConnectionString("SwigaDbContext"));
+    });
 
 var app = builder.Build();
 

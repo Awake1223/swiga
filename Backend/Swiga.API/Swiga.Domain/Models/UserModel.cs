@@ -16,6 +16,7 @@ namespace Swiga.Domain.Models
         public Role Role { get; set; }
 
 
+
         protected UserModel(Guid id, string email, string phoneNumber, string password, DateTime createdAt, Role role) 
         {
             Id = id;

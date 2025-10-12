@@ -14,7 +14,7 @@ namespace Swiga.Infrastructure
         public DbSet<AdminEntity> Admins { get; set; }
         public DbSet<ClientEntity> Clients  { get; set; }
         public DbSet<InventoryEntity> Inventories { get; set; }
-        public DbSet<RentalPointModel> RentalPoints { get; set; }
+        public DbSet<RentalPointEntity> RentalPoints { get; set; }
 
 
     }
