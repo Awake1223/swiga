@@ -1,6 +1,6 @@
 ﻿using Swiga.Domain.Models;
 
-namespace Swiga.Infrastructure.Repositories
+namespace Swiga.Domain.Abstructions
 {
     public interface IRentalPointRepository
     {

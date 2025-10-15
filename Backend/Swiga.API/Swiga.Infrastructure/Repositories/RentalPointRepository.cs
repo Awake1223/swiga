@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Swiga.Domain.Abstructions;
 using Swiga.Domain.Models;
 using Swiga.Infrastructure.Entity;
 

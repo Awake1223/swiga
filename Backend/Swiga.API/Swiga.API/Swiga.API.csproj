@@ -24,10 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Swiga.Application\Swiga.Application.csproj" />
+    <ProjectReference Include="..\Swiga.Domain\Swiga.Domain.csproj" />
     <ProjectReference Include="..\Swiga.Infrastructure\Swiga.Infrastructure.csproj" />
   </ItemGroup>
 

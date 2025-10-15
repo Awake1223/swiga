@@ -1,6 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Swiga.Application.Services;
+using Swiga.Domain;
+using Swiga.Domain.Models;
 using Swiga.Infrastructure;
+using Swiga.Infrastructure.Repositories;
+using Swiga.Domain.Abstructions;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +35,10 @@ builder.Services.AddDbContext<SwigaDbContext>(
     {
         options.UseNpgsql(builder.Configuration.GetConnectionString("SwigaDbContext"));
     });
+
+builder.Services.AddScoped<IInventoryService, InventoryService>();
+builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
+
 
 var app = builder.Build();
 

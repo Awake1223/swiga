@@ -43,4 +43,5 @@
 {4,"_$InfoBase$_.DumpFinish",21},
 {4,"_$InfoBase$_.RestoreStart",22},
 {4,"_$InfoBase$_.RestoreFinish",23},
-{5,b9ae7e6a-c19d-4fa6-8fd7-a6c7645767c4,"Справочник.Клиенты",10}
+{5,b9ae7e6a-c19d-4fa6-8fd7-a6c7645767c4,"Справочник.Клиенты",10},
+{5,912c55f9-66c0-49c4-bd23-db7f52ab795d,"Документ.АктОПовреждении",11}

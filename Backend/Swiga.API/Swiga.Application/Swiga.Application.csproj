@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Swiga.Infrastructure\Swiga.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
