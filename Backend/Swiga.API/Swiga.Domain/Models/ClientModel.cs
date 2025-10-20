@@ -8,8 +8,8 @@ namespace Swiga.Domain.Models
 {
     public class ClientModel : UserModel
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        //public string FirstName { get; set; }
+        //public string LastName { get; set; }
         public DateOnly? DateOfBirth { get; set; }
         public string? PassportData { get; set; }
         public string? DriverLicense { get; set; }
@@ -17,11 +17,7 @@ namespace Swiga.Domain.Models
 
         // Конструктор ClientModel
         public ClientModel(string firstName, string lastName, string email, string phoneNumber, string password)
-            : base(Guid.NewGuid(), email, phoneNumber, password, DateTime.UtcNow, Role.Client) // ← вызов базового конструктора
-        {
-            FirstName = firstName;
-            LastName = lastName;
-        }
+            : base(Guid.NewGuid(), firstName, lastName, email, phoneNumber, password, DateTime.UtcNow, Role.Client) { }
 
         public static ClientModel Create(string firstName, string lastName, string email, string phoneNumber, string password)
         {

@@ -21,6 +21,11 @@ namespace Swiga.Infrastructure.Configurations
                 .IsRequired()
                 .HasConversion<string>();
 
+             builder.HasOne(i => i.RentalPoint)
+                .WithMany(rp => rp.Inventories) // Убедитесь, что в RentalPointEntity есть это свойство
+                .HasForeignKey(i => i.RentalPointId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
         }
     }

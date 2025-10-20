@@ -5,7 +5,7 @@ using Swiga.Infrastructure.Entity;
 
 namespace Swiga.Infrastructure.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly SwigaDbContext _context;
 
@@ -70,7 +70,7 @@ namespace Swiga.Infrastructure.Repositories
         }
 
         // CREATE
-        public async Task<Guid> CreateAsync(UserModel user)
+        public async Task<Guid> CreateUserAsync(UserModel user)
         {
             var entity = ToEntity(user);
             await _context.Users.AddAsync(entity);
@@ -79,7 +79,7 @@ namespace Swiga.Infrastructure.Repositories
         }
 
         // UPDATE  
-        public async Task<Guid> UpdateAsync(UserModel user)
+        public async Task<Guid> UpdateUserAsync(UserModel user)
         {
             var entity = ToEntity(user);
             _context.Users.Update(entity);
@@ -88,7 +88,7 @@ namespace Swiga.Infrastructure.Repositories
         }
 
         // DELETE
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteUserAsync(Guid id)
         {
             await _context.Users
                 .Where(u => u.Id == id)
@@ -109,7 +109,7 @@ namespace Swiga.Infrastructure.Repositories
         private ClientModel ToClientModel(UserEntity entity)
         {
             var client = ClientModel.Create(
-                entity.FirstName?? string.Empty,
+                entity.FirstName ?? string.Empty,
                 entity.LastName ?? string.Empty,
                 entity.Email,
                 entity.PhoneNumber,
@@ -127,7 +127,8 @@ namespace Swiga.Infrastructure.Repositories
         private AdminModel ToAdminModel(UserEntity entity)
         {
             var admin = AdminModel.Create(
-                entity.FullName ?? string.Empty,
+                entity.FirstName ?? string.Empty,  // ✅ Вместо FullName
+                entity.LastName ?? string.Empty,   // ✅
                 entity.RentalPointId ?? Guid.Empty,
                 entity.Email,
                 entity.PhoneNumber,
@@ -145,6 +146,8 @@ namespace Swiga.Infrastructure.Repositories
             model.Id = entity.Id;
             model.CreatedAt = entity.CreatedAt;
             // Role уже установлен в Create методе
+            model.FirstName = entity.FirstName ?? string.Empty;  // ✅ ДОБАВИТЬ
+            model.LastName = entity.LastName ?? string.Empty;
         }
 
         // Маппинг Model → Entity
@@ -157,7 +160,10 @@ namespace Swiga.Infrastructure.Repositories
                 PhoneNumber = model.PhoneNumber,
                 Password = model.Password,
                 CreatedAt = model.CreatedAt,
-                Role = (int)model.Role
+                Role = (int)model.Role,
+                FirstName = model.FirstName,  // ✅ ДОБАВИТЬ
+                LastName = model.LastName,
+                FullName = $"{model.FirstName} {model.LastName}"
             };
 
             // Заполняем специфичные поля
@@ -167,10 +173,12 @@ namespace Swiga.Infrastructure.Repositories
                 entity.LastName = client.LastName;
                 // entity.DateOfBirth = client.DateOfBirth;
                 // entity.PassportData = client.PassportData;
+                entity.FullName = $"{client.FirstName} {client.LastName}";
+
             }
             else if (model is AdminModel admin)
             {
-                entity.FullName = admin.FullName;
+             //   entity.FullName = admin.FullName;
                 entity.RentalPointId = admin.RentalPointId;
             }
 

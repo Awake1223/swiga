@@ -32,5 +32,7 @@ namespace Swiga.Infrastructure.Entity
         [EmailAddress]
         [MaxLength(255)]
         public string Email { get; set; }
+
+        public ICollection<InventoryEntity> Inventories { get; set; } = new List<InventoryEntity>();
     }
 }

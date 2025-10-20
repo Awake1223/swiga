@@ -7,6 +7,7 @@ namespace Swiga.API.Contracts
         int Size,
         Gender Gender,
         decimal PricePerHour,
-        int Amount);
+        int Amount,
+        Guid RentalPointId);
 
 }

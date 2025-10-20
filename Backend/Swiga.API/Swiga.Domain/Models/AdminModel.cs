@@ -8,20 +8,19 @@ namespace Swiga.Domain.Models
 {
     public class AdminModel : UserModel
     {
-        public string FullName { get; set; }
+       // public string FullName { get; set; }
         public Guid RentalPointId { get; set; }
         public RentalPointModel RentalPoint { get; set; }
 
-        private AdminModel(string fullName, Guid rentalPointId, string email, string phoneNumber, string password)
-                   : base(Guid.NewGuid(), email, phoneNumber, password, DateTime.UtcNow, Role.Admin)  // ← Вызов родителя
+        private AdminModel(string firstName, string lastName, Guid rentalPointId, string email, string phoneNumber, string password)
+            : base(Guid.NewGuid(), firstName, lastName, email, phoneNumber, password, DateTime.UtcNow, Role.Admin) // ✅ ПРАВИЛЬНЫЙ порядок
         {
-            FullName = fullName;
             RentalPointId = rentalPointId;
         }
 
-        public static AdminModel Create(string fullName, Guid rentalPointId, string email, string phoneNumber, string password)
+        public static AdminModel Create(string firstName, string lastName, Guid rentalPointId, string email, string phoneNumber, string password)
         {
-            return new AdminModel(fullName, rentalPointId, email, phoneNumber, password);
+            return new AdminModel(firstName, lastName, rentalPointId, email, phoneNumber, password);
         }
 
     }

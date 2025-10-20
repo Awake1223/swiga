@@ -38,6 +38,11 @@ builder.Services.AddDbContext<SwigaDbContext>(
 
 builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
+builder.Services.AddScoped<IRentalPointService, RentalPointService>();
+builder.Services.AddScoped<IRentalPointRepository, RentalPointRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 
 
 var app = builder.Build();

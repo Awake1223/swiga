@@ -14,8 +14,10 @@ namespace Swiga.Domain.Models
         public Gender Gender { get; set; }
         public decimal PricePerHour { get; set; }
         public int Amount { get; set; }
+        public Guid RentalPointId { get; set; }
+        public RentalPointModel RentalPoint { get; set; }
 
-        private InventoryModel(Guid id, string name, int size, Gender gender, decimal pricePerHour, int amount) 
+        private InventoryModel(Guid id, string name, int size, Gender gender, decimal pricePerHour, int amount, Guid rentalPointId) 
         {
             Id = id;
             Name = name;
@@ -23,13 +25,14 @@ namespace Swiga.Domain.Models
             Gender = gender;
             PricePerHour = pricePerHour;
             Amount = amount;
+            RentalPointId = rentalPointId;
         }
 
     //   public InventoryModel() { }
 
-        public static(InventoryModel InventoryModel, string error) Create(Guid id, string name, int size, Gender gender, decimal pricePerHour, int amount)
+        public static(InventoryModel InventoryModel, string error) Create(Guid id, string name, int size, Gender gender, decimal pricePerHour, int amount, Guid rentalPointId)
         {
-            var inventory = new InventoryModel(id, name, size, gender, pricePerHour, amount);
+            var inventory = new InventoryModel(id, name, size, gender, pricePerHour, amount, rentalPointId);
 
             string errorString = string.Empty;
 

@@ -25,7 +25,7 @@ namespace Swiga.Infrastructure.Repositories
                 .ToListAsync();
 
             var inventory = inventoryEntities
-                .Select(i => InventoryModel.Create(i.Id, i.Name, i.Size, i.Gender, i.PricePerHour, i.Amount).InventoryModel)
+                .Select(i => InventoryModel.Create(i.Id, i.Name, i.Size, i.Gender, i.PricePerHour, i.Amount, i.RentalPointId).InventoryModel)
                 .ToList();
 
             return inventory;
@@ -41,6 +41,7 @@ namespace Swiga.Infrastructure.Repositories
                 Gender = inventory.Gender,
                 PricePerHour = inventory.PricePerHour,
                 Amount = inventory.Amount,
+                RentalPointId = inventory.RentalPointId
             };
 
             await _context.Inventories.AddAsync(inventoryEntity);

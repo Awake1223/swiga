@@ -20,7 +20,7 @@ namespace Swiga.API.Controllers
         {
             var inventories = await _inventoryService.GetAllInventory();
 
-            var response = inventories.Select(i => new InventoryResponse(i.Id, i.Name, i.Size, i.Gender, i.PricePerHour, i.Amount));
+            var response = inventories.Select(i => new InventoryResponse(i.Id, i.Name, i.Size, i.Gender, i.PricePerHour, i.Amount, i.RentalPointId));
 
             return Ok(response);
 
@@ -34,7 +34,8 @@ namespace Swiga.API.Controllers
                 request.Size,
                 request.Gender,
                 request.PricePerHour,
-                request.Amount);
+                request.Amount,
+                request.RentalPointId);
 
             if (!string.IsNullOrEmpty(error))
             {
