@@ -43,9 +43,27 @@ builder.Services.AddScoped<IRentalPointRepository, RentalPointRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200", 
+            "https://localhost:4200", 
+            "http://127.0.0.1:51329", 
+            "https://127.0.0.1:51329", 
+            "https://localhost:7087",
+            "http://localhost:51329",  
+            "https://localhost:51329"    )
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
 
 var app = builder.Build();
+
+// После app = builder.Build();
+app.UseCors("AllowAngular");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

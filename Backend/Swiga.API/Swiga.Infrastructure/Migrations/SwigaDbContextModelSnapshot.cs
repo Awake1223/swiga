@@ -17,7 +17,7 @@ namespace Swiga.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.9")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -154,6 +154,87 @@ namespace Swiga.Infrastructure.Migrations
                     b.ToTable("RentalPoints");
                 });
 
+            modelBuilder.Entity("Swiga.Infrastructure.Entity.ReservationEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CancellationReason")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("CancelledAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("ConfirmedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("RentalPointId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("RentalPointId");
+
+                    b.ToTable("Reservations");
+                });
+
+            modelBuilder.Entity("Swiga.Infrastructure.Entity.ReservationItemEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("InventoryId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("PricePerHour")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("ReservationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Size")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InventoryId");
+
+                    b.HasIndex("ReservationId");
+
+                    b.ToTable("ReservationItems");
+                });
+
             modelBuilder.Entity("Swiga.Infrastructure.Entity.UserEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -242,9 +323,54 @@ namespace Swiga.Infrastructure.Migrations
                     b.Navigation("RentalPoint");
                 });
 
+            modelBuilder.Entity("Swiga.Infrastructure.Entity.ReservationEntity", b =>
+                {
+                    b.HasOne("Swiga.Infrastructure.Entity.UserEntity", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Swiga.Infrastructure.Entity.RentalPointEntity", "RentalPoint")
+                        .WithMany("Reservations")
+                        .HasForeignKey("RentalPointId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+
+                    b.Navigation("RentalPoint");
+                });
+
+            modelBuilder.Entity("Swiga.Infrastructure.Entity.ReservationItemEntity", b =>
+                {
+                    b.HasOne("Swiga.Infrastructure.Entity.InventoryEntity", "Inventory")
+                        .WithMany()
+                        .HasForeignKey("InventoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Swiga.Infrastructure.Entity.ReservationEntity", "Reservation")
+                        .WithMany("Items")
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Inventory");
+
+                    b.Navigation("Reservation");
+                });
+
             modelBuilder.Entity("Swiga.Infrastructure.Entity.RentalPointEntity", b =>
                 {
                     b.Navigation("Inventories");
+
+                    b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("Swiga.Infrastructure.Entity.ReservationEntity", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

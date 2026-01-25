@@ -1,0 +1,39 @@
+<div class="points-container">
+  <div class="header">
+    <h1>🏪 Пункты проката</h1>
+    <button *ngIf="isAdmin" (click)="goToManagePoints()" class="manage-btn">
+      ⚙️ Управление точками
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    <p>Загрузка пунктов проката...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && !error && rentalPoints.length === 0" class="no-points">
+    <p>Нет доступных пунктов проката</p>
+    <button (click)="refreshPoints()" class="refresh-btn">Обновить</button>
+  </div>
+
+  <div class="points-grid">
+    <div *ngFor="let point of rentalPoints" class="point-card" (click)="viewPointInventory(point.id)">
+      <div class="point-header">
+        <h3>{{ point.name }}</h3>
+        <span class="city-badge">{{ point.city }}</span>
+      </div>
+      <p class="address">📍 {{ point.address }}</p>
+      <div class="contact-info">
+        <span class="phone">📞 {{ point.phoneNumber }}</span>
+        <span class="email">✉️ {{ point.email }}</span>
+      </div>
+      <div class="view-btn">
+        👀 Посмотреть инвентарь
+      </div>
+    </div>
+  </div>
+</div>

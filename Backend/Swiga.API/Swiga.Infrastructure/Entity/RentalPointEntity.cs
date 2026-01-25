@@ -34,5 +34,6 @@ namespace Swiga.Infrastructure.Entity
         public string Email { get; set; }
 
         public ICollection<InventoryEntity> Inventories { get; set; } = new List<InventoryEntity>();
+        public virtual ICollection<ReservationEntity> Reservations { get; set; } = new List<ReservationEntity>();
     }
 }

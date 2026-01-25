@@ -1,0 +1,265 @@
+.inventory-container {
+  min-height: 100vh;
+  padding: 20px;
+  background: #f0f4f8;
+}
+
+.header {
+  max-width: 1200px;
+  margin: 0 auto 30px;
+  padding: 20px 0;
+}
+
+.back-btn {
+  background: #4a5568;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+  .back-btn:hover {
+    background: #2d3748;
+  }
+
+.header h1 {
+  color: #1a202c;
+  font-size: 28px;
+  margin: 15px 0;
+  text-align: center;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.point-name {
+  background: #e2e8f0;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.add-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+  .add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  }
+
+.loading, .no-items {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.error-message {
+  background: #fff5f5;
+  border: 1px solid #feb2b2;
+  color: #c53030;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.no-items {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.item-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+  .item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+
+.item-header {
+  padding: 20px;
+  background: #f7fafc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+  .item-header h3 {
+    margin: 0 0 8px 0;
+    color: #1a202c;
+    font-size: 20px;
+  }
+
+.category-badge {
+  background: #bee3f8;
+  color: #2b6cb0;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.item-details {
+  padding: 20px;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #edf2f7;
+}
+
+  .spec-row:last-child {
+    border-bottom: none;
+  }
+
+.label {
+  color: #718096;
+  font-weight: 500;
+}
+
+.value {
+  color: #2d3748;
+  font-weight: 600;
+}
+
+.price {
+  color: #38a169;
+  font-size: 18px;
+}
+
+.stock-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #edf2f7;
+}
+
+.stock-label {
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.stock-value {
+  font-weight: 700;
+  color: #3182ce;
+}
+
+  .stock-value.low-stock {
+    color: #e53e3e;
+  }
+
+.item-actions {
+  padding: 15px;
+  border-top: 1px solid #edf2f7;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.action-btn {
+  flex: 1;
+  min-width: 100px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.edit-btn {
+  background: #f6ad55;
+  color: white;
+}
+
+  .edit-btn:hover {
+    background: #dd6b20;
+  }
+
+.delete-btn {
+  background: #fc8181;
+  color: white;
+}
+
+  .delete-btn:hover {
+    background: #e53e3e;
+  }
+
+.book-btn {
+  background: #63b3ed;
+  color: white;
+}
+
+  .book-btn:hover:not(:disabled) {
+    background: #3182ce;
+  }
+
+  .book-btn.disabled {
+    background: #cbd5e0;
+    cursor: not-allowed;
+  }
+
+@media (max-width: 600px) {
+  .header-actions {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .inventory-grid {
+    grid-template-columns: 1fr;
+  }
+}

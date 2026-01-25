@@ -1,0 +1,44 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="header">
+      <h1>Вход в Swiga</h1>
+      <p>Пожалуйста, войдите в свой аккаунт</p>
+    </div>
+
+    <form (ngSubmit)="login()" class="login-form">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email"
+               type="email"
+               [(ngModel)]="email"
+               name="email"
+               required
+               placeholder="example@email.com">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <input id="password"
+               type="password"
+               [(ngModel)]="password"
+               name="password"
+               required
+               placeholder="Ваш пароль"
+               minlength="6">
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Войти</span>
+        <span *ngIf="isLoading" class="loading">Вход...</span>
+      </button>
+    </form>
+
+    <div class="register-link">
+      <p>Нет аккаунта? <a routerLink="/register">Зарегистрироваться</a></p>
+    </div>
+  </div>
+</div>

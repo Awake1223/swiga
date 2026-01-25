@@ -1,0 +1,73 @@
+<div class="inventory-container">
+  <div class="header">
+    <button (click)="goBack()" class="back-btn">← Назад</button>
+    <h1>🛹 Инвентарь точки проката</h1>
+    <div class="header-actions">
+      <span class="point-name">{{ rentalPoint?.name }}</span>
+      <button *ngIf="isAdmin" (click)="addNewItem()" class="add-btn">
+        ➕ Добавить предмет
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    <p>Загрузка инвентаря...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && !error && inventoryItems.length === 0" class="no-items">
+    <p>В этой точке проката пока нет инвентаря</p>
+  </div>
+
+  <div class="inventory-grid">
+    <div *ngFor="let item of inventoryItems" class="item-card">
+      <div class="item-header">
+        <h3>{{ item.name }}</h3>
+        <span class="category-badge">{{ getCategoryName(item.name) }}</span>
+      </div>
+      <div class="item-details">
+        <div class="spec-row">
+          <span class="label">📏 Размер:</span>
+          <span class="value">{{ item.size }}</span>
+        </div>
+        <div class="spec-row">
+          <span class="label">🚹//{{ item.gender }}:</span>
+          <span class="value">{{ item.gender === 'Male' ? 'Мужской' : item.gender === 'Female' ? 'Женский' : 'Унисекс' }}</span>
+        </div>
+        <div class="spec-row">
+          <span class="label">💰 Цена/час:</span>
+          <span class="value price">{{ item.pricePerHour }} ₽</span>
+        </div>
+        <div class="stock-info">
+          <span class="stock-label">Остаток:</span>
+          <span class="stock-value" [class.low-stock]="item.amount <= 5">
+            {{ item.amount }} {{ getUnit(item.name) }}
+          </span>
+        </div>
+      </div>
+      <div class="item-actions">
+        <button *ngIf="isAdmin"
+                (click)="editItem(item)"
+                class="action-btn edit-btn">
+          ✏️ Редактировать
+        </button>
+        <button *ngIf="isAdmin"
+                (click)="deleteItem(item.id)"
+                class="action-btn delete-btn">
+          🗑️ Удалить
+        </button>
+        <button *ngIf="!isAdmin"
+                [disabled]="item.amount <= 0"
+                (click)="bookItem(item)"
+                class="action-btn book-btn"
+                [class.disabled]="item.amount <= 0">
+          📅 Забронировать
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

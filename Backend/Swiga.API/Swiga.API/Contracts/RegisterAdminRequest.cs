@@ -6,7 +6,7 @@
         string FirstName,  // ✅ Для будущего рефакторинга
         string LastName,   // ✅
         string? PhoneNumber = null,
-        Guid? RentalPointId = null,
+        string? RentalPointId = null,
         bool CreateNewRentalPoint = false,
         string? RentalPointName = null,
         string? RentalPointAddress = null,

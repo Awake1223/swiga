@@ -1,20 +1,35 @@
-import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing-module';
-import { App } from './app';
+// Components
+import { AppComponent } from './app.component';
+import { RegistrationComponent } from './Components/registration/registration.component';
+import { RentalPointComponent } from './Components/rental-point/rental-point.component';
+
+// Services
+import { UserService } from './Services/user.service';
+import { RentalPointService } from './Services/rental-point.service';
+import { AuthService } from './Services/auth.service';
+import { InventoryService } from './Services/inventory.service';
 
 @NgModule({
-  declarations: [
-    App
-  ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpClientModule,
+    // УДАЛЕН AppRoutingModule - он больше не нужен
+
+    // Standalone компоненты
+    AppComponent,
+    RegistrationComponent,
+    RentalPointComponent
   ],
   providers: [
-    provideBrowserGlobalErrorListeners()
+    UserService,
+    RentalPointService,
+    AuthService,
+    InventoryService
   ],
-  bootstrap: [App]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

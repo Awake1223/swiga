@@ -1,0 +1,54 @@
+<div class="profile-container">
+  <div class="profile-card">
+    <div class="header">
+      <h1>👤 Мой профиль</h1>
+      <button (click)="logout()" class="logout-btn">Выйти</button>
+    </div>
+
+    <div *ngIf="isLoading" class="loading">
+      <div class="spinner"></div>
+      <p>Загрузка профиля...</p>
+    </div>
+
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+    </div>
+
+    <div *ngIf="user && !isLoading" class="profile-content">
+      <div class="user-info">
+        <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+        <p class="role">{{ user.role === 'Client' ? 'Клиент' : 'Администратор' }}</p>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">📧 Email:</span>
+            <span class="value">{{ user.email }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">📱 Телефон:</span>
+            <span class="value">{{ user.phoneNumber || 'Не указан' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">📅 Зарегистрирован:</span>
+            <span class="value">{{ user.registeredAt | date:'dd.MM.yyyy HH:mm' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="user.role === 'Admin'" class="admin-actions">
+        <button (click)="registerRentalPoint()" class="action-btn admin-btn">
+          🏪 Зарегистрировать точку проката
+        </button>
+        <button (click)="viewRentalPoints()" class="action-btn">
+          👀 Мои точки проката
+        </button>
+      </div>
+
+      <div *ngIf="user.role === 'Client'" class="client-actions">
+        <button (click)="viewRentalPoints()" class="action-btn">
+          🗺️ Найти пункт проката
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

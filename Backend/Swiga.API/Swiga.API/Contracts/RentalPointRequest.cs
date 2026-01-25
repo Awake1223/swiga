@@ -1,7 +1,7 @@
 ﻿namespace Swiga.API.Contracts
 {
     public record RentalPointRequest(
-     Guid Id,
+   //  Guid Id,
      string Name,
      string Address,
      string City,

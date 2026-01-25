@@ -1,0 +1,161 @@
+<div class="registration-container">
+  <div class="registration-card">
+    <!-- Заголовок -->
+    <div class="header">
+      <h1>Добро пожаловать в Swiga</h1>
+      <p>Присоединяйтесь к сервису аренды инвентаря</p>
+    </div>
+
+    <!-- Выбор типа пользователя -->
+    <div class="user-type-selector">
+      <div class="selector-tabs">
+        <button class="tab-button"
+                [class.active]="userType === 'client'"
+                (click)="userType = 'client'"
+                type="button">
+          👤 Клиент
+        </button>
+        <button class="tab-button"
+                [class.active]="userType === 'admin'"
+                (click)="userType = 'admin'"
+                type="button">
+          🏪 Администратор
+        </button>
+      </div>
+    </div>
+
+    <!-- Форма регистрации -->
+    <form (ngSubmit)="register()" class="registration-form">
+      <!-- Общие поля -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">Имя</label>
+          <input id="firstName"
+                 type="text"
+                 [(ngModel)]="formData.firstName"
+                 name="firstName"
+                 required
+                 placeholder="Введите ваше имя">
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Фамилия</label>
+          <input id="lastName"
+                 type="text"
+                 [(ngModel)]="formData.lastName"
+                 name="lastName"
+                 required
+                 placeholder="Введите вашу фамилию">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email"
+               type="email"
+               [(ngModel)]="formData.email"
+               name="email"
+               required
+               placeholder="example@email.com">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <input id="password"
+               type="password"
+               [(ngModel)]="formData.password"
+               name="password"
+               required
+               placeholder="Создайте надежный пароль"
+               minlength="6">
+      </div>
+
+      <div class="form-group">
+        <label for="phoneNumber">Телефон</label>
+        <input id="phoneNumber"
+               type="tel"
+               [(ngModel)]="formData.phoneNumber"
+               name="phoneNumber"
+               placeholder="+7 (999) 999-99-99">
+      </div>
+
+      <!-- Поля только для админа -->
+      <div *ngIf="userType === 'admin'" class="admin-section">
+        <div class="section-divider">
+          <span>Данные точки проката</span>
+        </div>
+
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox"
+                   [(ngModel)]="formData.createNewRentalPoint"
+                   name="createNewRentalPoint"
+                   class="checkbox-input">
+            <span class="checkmark"></span>
+            Создать новую точку проката
+          </label>
+        </div>
+
+        <div *ngIf="formData.createNewRentalPoint" class="rental-point-fields">
+          <div class="form-group">
+            <label for="rentalPointName">Название точки</label>
+            <input id="rentalPointName"
+                   type="text"
+                   [(ngModel)]="formData.rentalPointName"
+                   name="rentalPointName"
+                   placeholder="Название вашей точки проката">
+          </div>
+
+          <div class="form-group">
+            <label for="rentalPointAddress">Адрес</label>
+            <input id="rentalPointAddress"
+                   type="text"
+                   [(ngModel)]="formData.rentalPointAddress"
+                   name="rentalPointAddress"
+                   placeholder="Полный адрес точки">
+          </div>
+
+          <div class="form-group">
+            <label for="rentalPointCity">Город</label>
+            <input id="rentalPointCity"
+                   type="text"
+                   [(ngModel)]="formData.rentalPointCity"
+                   name="rentalPointCity"
+                   placeholder="Город расположения">
+          </div>
+        </div>
+
+        <div *ngIf="!formData.createNewRentalPoint" class="form-group">
+          <label for="rentalPointId">ID существующей точки проката</label>
+          <input id="rentalPointId"
+                 type="text"
+                 [(ngModel)]="formData.rentalPointId"
+                 name="rentalPointId"
+                 placeholder="Введите ID точки проката">
+        </div>
+      </div>
+
+      <button type="submit" class="submit-button" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Зарегистрироваться</span>
+        <span *ngIf="isLoading" class="loading">Регистрация...</span>
+      </button>
+    </form>
+
+    <!-- Сообщения об успехе/ошибке -->
+    <div *ngIf="response" class="success-message">
+      <div class="success-icon">✅</div>
+      <h3>Регистрация успешна!</h3>
+      <p>Добро пожаловать в Swiga, {{ response.firstName }}!</p>
+      <div class="success-details">
+        <p><strong>Роль:</strong> {{ response.role === 'Client' ? 'Клиент' : 'Администратор' }}</p>
+        <p><strong>Email:</strong> {{ response.email }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="error" class="error-message">
+      <div class="error-icon">⚠️</div>
+      <h3>Ошибка регистрации</h3>
+      <p>{{ error }}</p>
+    </div>
+  </div>
+</div>

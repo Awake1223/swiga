@@ -28,8 +28,21 @@ namespace Swiga.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Guid>> CreateRentalPoint([FromBody] RentalPointRequest request)
         {
+            // Проверки полей
+            if (string.IsNullOrEmpty(request.Name))
+                return BadRequest("Name is required");
+            if (string.IsNullOrEmpty(request.Address))
+                return BadRequest("Address is required");
+            if (string.IsNullOrEmpty(request.City))
+                return BadRequest("City is required");
+            if (string.IsNullOrEmpty(request.PhoneNumber))
+                return BadRequest("PhoneNumber is required");
+            if (string.IsNullOrEmpty(request.Email))
+                return BadRequest("Email is required");
+
+            // Генерируем ID здесь
             var (rentalPoint, error) = RentalPointModel.Create(
-                Guid.NewGuid(),
+                Guid.NewGuid(),  // ← ID генерируется на сервере
                 request.Name,
                 request.Address,
                 request.City,
@@ -42,7 +55,6 @@ namespace Swiga.API.Controllers
             }
 
             var rentalPointId = await _rentalPoint.CreateRentalPoint(rentalPoint);
-
             return Ok(rentalPointId);
         }
 

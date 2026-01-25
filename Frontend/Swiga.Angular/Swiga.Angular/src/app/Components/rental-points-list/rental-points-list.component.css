@@ -1,0 +1,177 @@
+.points-container {
+  min-height: 100vh;
+  padding: 20px;
+  background: #f0f4f8;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+  .header h1 {
+    color: #1a202c;
+    font-size: 28px;
+    margin: 0;
+  }
+
+.manage-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+  .manage-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  }
+
+.loading, .no-points {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.error-message {
+  background: #fff5f5;
+  border: 1px solid #feb2b2;
+  color: #c53030;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.no-points {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.refresh-btn {
+  background: #4299e1;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.points-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.point-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+  .point-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+
+.point-header {
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  position: relative;
+}
+
+  .point-header h3 {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+.city-badge {
+  background: rgba(255,255,255,0.2);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.address {
+  padding: 15px;
+  color: #4a5568;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.contact-info {
+  padding: 0 15px 15px;
+  color: #718096;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+  .contact-info span {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+.view-btn {
+  background: #e2e8f0;
+  padding: 12px;
+  text-align: center;
+  font-weight: 600;
+  color: #4a5568;
+  border-top: 1px solid #edf2f7;
+  transition: all 0.3s;
+}
+
+.point-card:hover .view-btn {
+  background: #cbd5e0;
+  color: #2d3748;
+}
+
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .points-grid {
+    grid-template-columns: 1fr;
+  }
+}
