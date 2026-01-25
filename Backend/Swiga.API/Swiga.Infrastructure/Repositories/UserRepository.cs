@@ -178,11 +178,40 @@ namespace Swiga.Infrastructure.Repositories
             }
             else if (model is AdminModel admin)
             {
-             //   entity.FullName = admin.FullName;
+                //   entity.FullName = admin.FullName;
                 entity.RentalPointId = admin.RentalPointId;
             }
 
             return entity;
+        }
+
+        public async Task<ClientModel?> GetClientByIdAsync(Guid clientId)
+        {
+            var entity = await _context.Users
+                .FirstOrDefaultAsync(u => u.Id == clientId && u.Role == (int)Role.Client);
+
+            if (entity == null) return null;
+
+            if (string.IsNullOrEmpty(entity.FirstName) ||
+            string.IsNullOrEmpty(entity.LastName) ||
+            string.IsNullOrEmpty(entity.Email))
+            {
+                Console.WriteLine($"Client {clientId} has missing required fields");
+                return null;
+            }
+
+            return ClientModel.Create(
+                entity.FirstName ?? string.Empty,
+                entity.LastName ?? string.Empty,
+                entity.Email,
+                entity.PhoneNumber ?? string.Empty,
+                entity.Password);
+        }
+
+        public async Task<bool> ClientExistAsync(Guid clientId)
+        {
+            return await _context.Users
+                .AnyAsync(u => u.Id == clientId && u.Role == (int)Role.Client);
         }
     }
 }

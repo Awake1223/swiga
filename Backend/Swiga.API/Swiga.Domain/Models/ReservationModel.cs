@@ -12,22 +12,22 @@ namespace Swiga.Domain.Models
 
     public class ReservationModel
     {
-        public Guid Id { get; private set; }
-        public Guid ClientId { get; private set; }
-        public Guid RentalPointId { get; private set; }
-        public DateTime StartDate { get; private set; }
-        public DateTime EndDate { get; private set; }
-        public ReservationStatus Status { get; private set; }
-        public decimal TotalPrice { get; private set; }
-        public DateTime CreatedAt { get; private set; }
-        public DateTime? ConfirmedAt { get; private set; }
-        public DateTime? CancelledAt { get; private set; }
-        public string? CancellationReason { get; private set; }
+        public Guid Id { get; set; }
+        public Guid ClientId { get; set; }
+        public Guid RentalPointId { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public ReservationStatus Status { get; set; }
+        public decimal TotalPrice { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? ConfirmedAt { get; set; }
+        public DateTime? CancelledAt { get;     set; }
+        public string? CancellationReason { get; set; }
 
-        public ClientModel ClientModel { get; private set; }
-        public RentalPointModel RentalPoint { get; private set; }
+        public ClientModel ClientModel { get;  set; }
+        public RentalPointModel RentalPoint { get;  set; }
 
-        public List<ReservationItemModel> Items { get; private set; } = new();
+        public List<ReservationItemModel> Items { get;  set; } = new();
 
         private ReservationModel(Guid id, Guid clientId, Guid rentalPointId, DateTime startDate, DateTime endDate)
         {

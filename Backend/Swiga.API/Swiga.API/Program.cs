@@ -42,6 +42,7 @@ builder.Services.AddScoped<IRentalPointService, RentalPointService>();
 builder.Services.AddScoped<IRentalPointRepository, RentalPointRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 
 builder.Services.AddCors(options =>
 {

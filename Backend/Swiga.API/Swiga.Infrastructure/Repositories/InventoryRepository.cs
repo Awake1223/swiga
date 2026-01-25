@@ -74,5 +74,51 @@ namespace Swiga.Infrastructure.Repositories
             return id;
         }
 
+        public async Task<InventoryModel?> GetInventoryByIdAsync(Guid inventoryId)
+        {
+            var entity = await _context.Inventories
+                .FirstOrDefaultAsync(i => i.Id == inventoryId);
+
+            if (entity == null) return null;
+
+            return InventoryModel.Create(
+                entity.Id,
+                entity.Name,
+                entity.Size,
+                (Gender)entity.Gender,
+                entity.PricePerHour,
+                entity.Amount,
+                entity.RentalPointId).InventoryModel;
+
+        }
+
+        public async Task<List<InventoryModel>> GetInventoryByRentalPointAsync(Guid rentalPointId)
+        {
+            var entities = await _context.Inventories
+                .Where(i => i.RentalPointId == rentalPointId)
+                .ToListAsync();
+
+            var result = new List<InventoryModel>();
+
+            foreach (var entity in entities)
+            {
+                var (inventory, error) = InventoryModel.Create(
+                    entity.Id,
+                    entity.Name,
+                    entity.Size,
+                    (Gender)entity.Gender,
+                    entity.PricePerHour,
+                    entity.Amount,
+                    entity.RentalPointId);
+
+                if (inventory != null)
+                {
+                    result.Add(inventory);
+                }
+            }
+
+            return result;
+        }
+
     }
 }
