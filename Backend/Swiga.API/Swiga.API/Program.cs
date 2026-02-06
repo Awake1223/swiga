@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swiga.Application.Services;
 using Swiga.Application.Services.Security;
+using Swiga.Application.Services.UserServices;
 using Swiga.Domain;
 using Swiga.Domain.Abstructions;
 using Swiga.Domain.Models;
@@ -89,6 +90,8 @@ builder.Services.AddDbContext<SwigaDbContext>(
         options.UseNpgsql(builder.Configuration.GetConnectionString("SwigaDbContext"));
     });
 
+
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
 builder.Services.AddScoped<IRentalPointService, RentalPointService>();
@@ -99,6 +102,9 @@ builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+builder.Services.AddLogging();
 
 builder.Services.AddCors(options =>
 {

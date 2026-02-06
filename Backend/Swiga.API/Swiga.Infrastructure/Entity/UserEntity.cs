@@ -26,6 +26,7 @@ namespace Swiga.Infrastructure.Entity
         public string Password { get; set; }
 
         public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         [Required]
         public int Role { get; set; } // Храним как int для БД

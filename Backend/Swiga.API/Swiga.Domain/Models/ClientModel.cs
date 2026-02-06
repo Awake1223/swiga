@@ -17,7 +17,7 @@ namespace Swiga.Domain.Models
 
         // Конструктор ClientModel
         public ClientModel(string firstName, string lastName, string email, string phoneNumber, string password)
-            : base(Guid.NewGuid(), firstName, lastName, email, phoneNumber, password, DateTime.UtcNow, Role.Client) { }
+            : base(Guid.NewGuid(), firstName, lastName, email, phoneNumber, password, DateTime.UtcNow, DateTime.MinValue, Role.Client) { }
 
         public static ClientModel Create(string firstName, string lastName, string email, string phoneNumber, string password)
         {

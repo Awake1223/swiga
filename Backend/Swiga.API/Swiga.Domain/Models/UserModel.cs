@@ -12,6 +12,7 @@ namespace Swiga.Domain.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
+        public DateTime UpdatedAt { get; set; }
         public DateTime CreatedAt { get; set; }
         public Role Role { get; set; }
 
@@ -20,7 +21,7 @@ namespace Swiga.Domain.Models
 
 
 
-        protected UserModel(Guid id, string firstName, string lastName, string email, string phoneNumber, string password, DateTime createdAt, Role role)
+        protected UserModel(Guid id, string firstName, string lastName, string email, string phoneNumber, string password, DateTime updatedAt, DateTime createdAt, Role role)
         {
             Id = id;
             FirstName = firstName;    // 2-й параметр
@@ -29,9 +30,24 @@ namespace Swiga.Domain.Models
             PhoneNumber = phoneNumber; // 5-й параметр
             Password = password;      // 6-й параметр
             CreatedAt = createdAt;    // 7-й параметр
+            UpdatedAt = createdAt;
             Role = role;              // 8-й параметр
         }
 
+
+        public void UpdateProfile(string firstName, string lastName, string email, string phoneNumber)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            PhoneNumber = phoneNumber;
+        }
+
+        public void ChangePassword(string newHashedPassword)
+        {
+            Password = newHashedPassword;
+            UpdatedAt = DateTime.UtcNow;
+        }
 
     }
     public enum Role {

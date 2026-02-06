@@ -13,7 +13,7 @@ namespace Swiga.Domain.Models
         public RentalPointModel RentalPoint { get; set; }
 
         private AdminModel(string firstName, string lastName, Guid rentalPointId, string email, string phoneNumber, string password)
-            : base(Guid.NewGuid(), firstName, lastName, email, phoneNumber, password, DateTime.UtcNow, Role.Admin) 
+            : base(Guid.NewGuid(), firstName, lastName, email, phoneNumber, password, DateTime.UtcNow, DateTime.MinValue,  Role.Admin) 
         {
             RentalPointId = rentalPointId;
         }

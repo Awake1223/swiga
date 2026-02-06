@@ -1,10 +1,9 @@
-﻿
-using Swiga.Domain.Abstructions;
+﻿using Swiga.Domain.Abstructions;
 using Swiga.Domain.Models;
 using Swiga.Infrastructure.Repositories;
 
 
-namespace Swiga.Application.Services
+namespace Swiga.Application.Services.UserServices
 {
     public class UserService : IUserService
     {
@@ -66,6 +65,56 @@ namespace Swiga.Application.Services
         public async Task<UserModel?> GetUserByIdAsync(Guid id)
         {
             return await _userRepository.GetUserByIdAsync(id);
+        }
+
+        public async Task<(bool success, string error)> ChangePasswordAsync(Guid userId, string currentPassword, string newPassword)
+        {
+            var user = await _userRepository.GetUserByIdAsync(userId);
+
+            if (user == null)
+                return (false, "Пользователь не найден");
+
+            if (!_passwordHasher.VerifyPassword(currentPassword, user.Password))
+                return (false, "Текущий пароль неверный");
+
+            if (string.IsNullOrWhiteSpace(newPassword) || newPassword.Length < 6)
+                return (false, "Новый пароль должен быть больше 6 символов");
+
+            var newHashedPassword = _passwordHasher.HashPassword(newPassword);
+
+            user.ChangePassword(newHashedPassword);
+
+            await _userRepository.UpdateUserAsync(user);
+
+            return (true, string.Empty);
+
+
+        }
+
+        public async Task<(bool success, string error)> DeleteUserAsync(Guid userId, string password)
+        {
+            var user = await _userRepository.GetUserByIdAsync(userId);
+
+            if (user == null)
+                return (false, "Пользователь не найден");
+
+            if (!_passwordHasher.VerifyPassword(password, user.Password))
+                return (false, "Пароль некорректен");
+
+            await _userRepository.DeleteUserAsync(userId);
+
+            return (true, string.Empty);
+        }
+
+        public async Task<bool> CheckPasswordAsync(Guid userId, string password)
+        {
+            var user = await _userRepository.GetUserByIdAsync(userId);
+
+            if (user == null)
+                return false;
+
+
+            return _passwordHasher.VerifyPassword(password, user.Password);
         }
     }
 }

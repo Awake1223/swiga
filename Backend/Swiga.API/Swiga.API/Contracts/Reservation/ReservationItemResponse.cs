@@ -1,4 +1,4 @@
-﻿namespace Swiga.API.Contracts
+﻿namespace Swiga.API.Contracts.Reservation
 {
     public class ReservationItemResponse
     {
