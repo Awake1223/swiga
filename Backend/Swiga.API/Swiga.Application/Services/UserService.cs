@@ -1,16 +1,20 @@
 ﻿
-
+using Swiga.Domain.Abstructions;
 using Swiga.Domain.Models;
 using Swiga.Infrastructure.Repositories;
+
 
 namespace Swiga.Application.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public UserService(IUserRepository userRepository)
+
+        public UserService(IUserRepository userRepository, IPasswordHasher passwordHasher)
         {
+            _passwordHasher = passwordHasher;
             _userRepository = userRepository;
         }
 
@@ -21,6 +25,16 @@ namespace Swiga.Application.Services
 
         public async Task<Guid> CreateUser(UserModel user)
         {
+
+            var existing = await _userRepository.GetUserByEmailAsync(user.Email);
+
+            if (existing != null)
+            {
+                throw new InvalidOperationException("User with this email already exists");
+            }
+
+            user.Password = _passwordHasher.HashPassword(user.Password);
+
             return await _userRepository.CreateUserAsync(user);
         }
 
@@ -33,15 +47,6 @@ namespace Swiga.Application.Services
         {
             await _userRepository.DeleteUserAsync(id);
         }
-
-        //Task<Guid> CreateUserAsync(UserModel user); +
-        //Task DeleteUserAsync(Guid id);  +
-        //Task<List<AdminModel>> GetAllAdminsAsync();+
-        //Task<List<ClientModel>> GetAllClientsAsync();+
-        //Task<List<UserModel>> GetAllUsersAsync();+
-        //Task<UserModel?> GetUserByEmailAsync(string email); +
-        //Task<UserModel?> GetUserByIdAsync(Guid id);
-        //Task<Guid> UpdateUserAsync(UserModel user);+
 
         public async Task<List<ClientModel>> GetAllClients()
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Swiga.API.Contracts;
 using Swiga.Application.Services;
 using Swiga.Domain.Abstructions;
@@ -24,7 +25,7 @@ namespace Swiga.API.Controllers
 
             return Ok(response);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Guid>> CreateRentalPoint([FromBody] RentalPointRequest request)
         {
@@ -57,6 +58,7 @@ namespace Swiga.API.Controllers
             var rentalPointId = await _rentalPoint.CreateRentalPoint(rentalPoint);
             return Ok(rentalPointId);
         }
+        
 
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<Guid>> UpdateRentalPoint(Guid id, [FromBody] RentalPointRequest request)

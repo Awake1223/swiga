@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Swiga.Domain.Abstructions;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Swiga.API.Contracts;
+using Swiga.Domain.Abstructions;
 using Swiga.Domain.Models;
 
 namespace Swiga.API.Controllers
@@ -15,6 +16,7 @@ namespace Swiga.API.Controllers
             _inventoryService = inventoryService;
         }
 
+
         [HttpGet]
         public async Task<ActionResult<List<InventoryResponse>>> GetInventory()
         {
@@ -25,6 +27,9 @@ namespace Swiga.API.Controllers
             return Ok(response);
 
         }
+
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Guid>> CreateInventory([FromBody] InventoryRequest request)
         {
@@ -46,7 +51,8 @@ namespace Swiga.API.Controllers
 
             return Ok(inventoryId);
         }
-        
+
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<Guid>> UpdateInventory(Guid id, [FromBody] InventoryRequest request) 
         {
@@ -55,8 +61,8 @@ namespace Swiga.API.Controllers
             return Ok(inventoryId);
         }
 
-
-        [HttpDelete("{id:guid}")]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id:guid}")] 
         public async Task<ActionResult<Guid>> DeleteInventory(Guid id)
         {
             return Ok(await _inventoryService.DeleteInventory(id));

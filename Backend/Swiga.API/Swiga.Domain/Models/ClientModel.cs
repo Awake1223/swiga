@@ -23,6 +23,18 @@ namespace Swiga.Domain.Models
         {
             return new ClientModel(firstName, lastName, email, phoneNumber, password);
         }
+
+        // НОВЫЙ метод для хешированных паролей
+        public static ClientModel CreateWithHashedPassword(string firstName, string lastName,
+            string email, string phoneNumber, string hashedPassword)
+        {
+            return new ClientModel(
+                firstName,
+                lastName,
+                email,
+                phoneNumber,
+                hashedPassword);
+        }
     }
 }
 

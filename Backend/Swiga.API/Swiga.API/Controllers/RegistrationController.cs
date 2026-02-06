@@ -119,36 +119,36 @@ namespace Swiga.API.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine($"Registration error: {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
-                return StatusCode(500, new { error = ex.Message, stackTrace = ex.StackTrace });
+                //  Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                return StatusCode(500, new { error = ex.Message }); //stackTrace = ex.StackTrace });
             }
         }
 
-        [HttpPut("{id:guid}")] 
-        public async Task<ActionResult> UpdateUser(Guid id,[FromBody] UpdateUserRequest request)
-        {
-            var user = await _userService.GetUserByIdAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+        //[HttpPut("{id:guid}")] 
+        //public async Task<ActionResult> UpdateUser(Guid id,[FromBody] UpdateUserRequest request)
+        //{
+        //    var user = await _userService.GetUserByIdAsync(id);
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            user.FirstName = request.FirstName;
-            user.LastName = request.LastName;
-            user.Email = request.Email;
-            user.PhoneNumber = request.PhoneNumber;
+        //    user.FirstName = request.FirstName;
+        //    user.LastName = request.LastName;
+        //    user.Email = request.Email;
+        //    user.PhoneNumber = request.PhoneNumber;
 
-            await _userService.UpdateUser(user);
+        //    await _userService.UpdateUser(user);
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
-        [HttpDelete("{id:guid}")]
-        public async Task<ActionResult> DeleteUser(Guid id)
-        {
-            await _userService.DeleteUser(id);
-            return NoContent();
-        }
+        //[HttpDelete("{id:guid}")]
+        //public async Task<ActionResult> DeleteUser(Guid id)
+        //{
+        //    await _userService.DeleteUser(id);
+        //    return NoContent();
+        //}
 
     }
 }

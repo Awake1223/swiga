@@ -13,7 +13,7 @@ namespace Swiga.Domain.Models
         public RentalPointModel RentalPoint { get; set; }
 
         private AdminModel(string firstName, string lastName, Guid rentalPointId, string email, string phoneNumber, string password)
-            : base(Guid.NewGuid(), firstName, lastName, email, phoneNumber, password, DateTime.UtcNow, Role.Admin) // ✅ ПРАВИЛЬНЫЙ порядок
+            : base(Guid.NewGuid(), firstName, lastName, email, phoneNumber, password, DateTime.UtcNow, Role.Admin) 
         {
             RentalPointId = rentalPointId;
         }
@@ -21,6 +21,19 @@ namespace Swiga.Domain.Models
         public static AdminModel Create(string firstName, string lastName, Guid rentalPointId, string email, string phoneNumber, string password)
         {
             return new AdminModel(firstName, lastName, rentalPointId, email, phoneNumber, password);
+        }
+
+        // НОВЫЙ метод для хешированных паролей
+        public static AdminModel CreateWithHashedPassword(string firstName, string lastName,
+            Guid rentalPointId, string email, string phoneNumber, string hashedPassword)
+        {
+            return new AdminModel(
+                firstName,
+                lastName,
+                rentalPointId,
+                email,
+                phoneNumber,
+                hashedPassword);
         }
 
     }
