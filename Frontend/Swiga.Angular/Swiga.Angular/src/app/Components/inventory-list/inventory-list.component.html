@@ -1,72 +1,118 @@
+<!-- Components/inventory-list/inventory-list.component.html -->
 <div class="inventory-container">
   <div class="header">
-    <button (click)="goBack()" class="back-btn">← Назад</button>
-    <h1>🛹 Инвентарь точки проката</h1>
+    <h2>Инвентарь</h2>
+
+    <div *ngIf="rentalPointId" class="rental-point-info">
+      <p>Пункт проката: {{ rentalPointId }}</p>
+    </div>
+
+    <!-- Кнопки управления -->
     <div class="header-actions">
-      <span class="point-name">{{ rentalPoint?.name }}</span>
-      <button *ngIf="isAdmin" (click)="addNewItem()" class="add-btn">
-        ➕ Добавить предмет
+      <!-- Кнопка создания инвентаря (только для админов) -->
+      <button *ngIf="isAdmin" (click)="createInventory()" class="btn-create">
+        + Добавить инвентарь
+      </button>
+
+      <!-- Кнопка обновления -->
+      <button (click)="refreshInventory()" class="btn-refresh">
+        🔄 Обновить
       </button>
     </div>
   </div>
 
+  <!-- Состояние загрузки -->
   <div *ngIf="isLoading" class="loading">
     <div class="spinner"></div>
-    <p>Загрузка инвентаря...</p>
+    Загрузка инвентаря...
   </div>
 
-  <div *ngIf="error" class="error-message">
+  <!-- Сообщение об ошибке -->
+  <div *ngIf="error && !isLoading" class="error-message">
+    <span class="error-icon">⚠️</span>
     {{ error }}
+    <button (click)="refreshInventory()" class="btn-retry">Попробовать снова</button>
   </div>
 
-  <div *ngIf="!isLoading && !error && inventoryItems.length === 0" class="no-items">
-    <p>В этой точке проката пока нет инвентаря</p>
+  <!-- Сообщение если инвентарь пуст -->
+  <div *ngIf="!isLoading && !error && inventory.length === 0" class="empty-message">
+    <span class="empty-icon">📭</span>
+    Инвентарь не найден
+    <button *ngIf="isAdmin" (click)="createInventory()" class="btn-create-first">
+      Создать первый инвентарь
+    </button>
   </div>
 
-  <div class="inventory-grid">
-    <div *ngFor="let item of inventoryItems" class="item-card">
-      <div class="item-header">
-        <h3>{{ item.name }}</h3>
-        <span class="category-badge">{{ getCategoryName(item.name) }}</span>
-      </div>
-      <div class="item-details">
-        <div class="spec-row">
-          <span class="label">📏 Размер:</span>
-          <span class="value">{{ item.size }}</span>
+  <!-- Список инвентаря -->
+  <div *ngIf="!isLoading && !error && inventory.length > 0" class="inventory-content">
+    <div class="stats">
+      <span class="stat-item">Всего: {{ inventory.length }} позиций</span>
+      <span *ngIf="rentalPointId" class="stat-item">
+        Фильтр: пункт проката {{ rentalPointId }}
+      </span>
+    </div>
+
+    <div class="inventory-grid">
+      <div *ngFor="let item of inventory" class="inventory-card">
+        <div class="card-header">
+          <h3>{{ item.name }}</h3>
+          <span class="price">{{ item.pricePerHour | number:'1.2-2' }} ₽/час</span>
         </div>
-        <div class="spec-row">
-          <span class="label">🚹//{{ item.gender }}:</span>
-          <span class="value">{{ item.gender === 'Male' ? 'Мужской' : item.gender === 'Female' ? 'Женский' : 'Унисекс' }}</span>
+
+        <div class="card-body">
+          <div class="info-row">
+            <span class="label">Размер:</span>
+            <span class="value">{{ item.size }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Пол:</span>
+            <span class="value">
+              <span [class]="'gender-badge gender-' + item.gender?.toLowerCase()">
+                {{ item.gender === 'Male' ? 'Мужской' : item.gender === 'Female' ? 'Женский' : 'Унисекс' }}
+              </span>
+            </span>
+          </div>
+          <div class="info-row">
+            <span class="label">Количество:</span>
+            <span class="value">
+              <span [class]="'amount-badge ' + (item.amount > 0 ? 'in-stock' : 'out-of-stock')">
+                {{ item.amount }} шт.
+              </span>
+            </span>
+          </div>
+          <div class="info-row">
+            <span class="label">ID пункта:</span>
+            <span class="value">{{ item.rentalPointId }}</span>
+          </div>
         </div>
-        <div class="spec-row">
-          <span class="label">💰 Цена/час:</span>
-          <span class="value price">{{ item.pricePerHour }} ₽</span>
+
+        <div class="card-actions">
+          <!-- Для админов: кнопки редактирования и удаления -->
+          <div *ngIf="isAdmin" class="admin-actions">
+            <button (click)="editInventory(item.id)" class="btn-edit">
+              <span class="icon">✏️</span>
+              Редактировать
+            </button>
+            <button (click)="deleteInventory(item.id)" class="btn-delete">
+              <span class="icon">🗑️</span>
+              Удалить
+            </button>
+          </div>
+
+          <!-- Для клиентов: кнопка бронирования -->
+          <div *ngIf="!isAdmin && item.amount > 0" class="client-actions">
+            <button (click)="bookItem(item)" class="btn-book">
+              <span class="icon">🗓️</span>
+              Забронировать
+            </button>
+          </div>
+
+          <!-- Если нет в наличии -->
+          <div *ngIf="!isAdmin && item.amount === 0" class="out-of-stock-message">
+            <span class="icon">⏳</span>
+            Нет в наличии
+          </div>
         </div>
-        <div class="stock-info">
-          <span class="stock-label">Остаток:</span>
-          <span class="stock-value" [class.low-stock]="item.amount <= 5">
-            {{ item.amount }} {{ getUnit(item.name) }}
-          </span>
-        </div>
-      </div>
-      <div class="item-actions">
-        <button *ngIf="isAdmin"
-                (click)="editItem(item)"
-                class="action-btn edit-btn">
-          ✏️ Редактировать
-        </button>
-        <button *ngIf="isAdmin"
-                (click)="deleteItem(item.id)"
-                class="action-btn delete-btn">
-          🗑️ Удалить
-        </button>
-        <button *ngIf="!isAdmin"
-                [disabled]="item.amount <= 0"
-                (click)="bookItem(item)"
-                class="action-btn book-btn"
-                [class.disabled]="item.amount <= 0">
-          📅 Забронировать
-        </button>
       </div>
     </div>
   </div>

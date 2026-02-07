@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Swiga.API.Contracts;
+using Swiga.API.Contracts.Auth;
 using Swiga.Application.Services;
 using Swiga.Application.Services.Security;
 using Swiga.Infrastructure.Repositories;

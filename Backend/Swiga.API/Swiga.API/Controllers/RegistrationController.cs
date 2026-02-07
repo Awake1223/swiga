@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.IdentityModel.Tokens;
-using Swiga.API.Contracts;
+using Swiga.API.Contracts.Registration;
 using Swiga.Application.Services;
 using Swiga.Domain.Models;
 

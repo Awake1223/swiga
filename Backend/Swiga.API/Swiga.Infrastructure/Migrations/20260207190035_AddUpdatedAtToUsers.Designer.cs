@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Swiga.Infrastructure;
@@ -11,9 +12,11 @@ using Swiga.Infrastructure;
 namespace Swiga.Infrastructure.Migrations
 {
     [DbContext(typeof(SwigaDbContext))]
-    partial class SwigaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260207190035_AddUpdatedAtToUsers")]
+    partial class AddUpdatedAtToUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

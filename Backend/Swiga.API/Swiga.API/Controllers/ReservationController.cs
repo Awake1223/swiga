@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Swiga.API.Contracts;
+using Swiga.API.Contracts.Inventory;
 using Swiga.API.Contracts.Reservation;
 using Swiga.Application.DTOs;
 using Swiga.Application.DTOs.Reservations;

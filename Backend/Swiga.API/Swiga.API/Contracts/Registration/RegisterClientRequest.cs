@@ -1,6 +1,6 @@
 ﻿using Swiga.Domain.Models;
 
-namespace Swiga.API.Contracts
+namespace Swiga.API.Contracts.Registration
 {
     public record RegisterClientRequest(
          string FirstName,

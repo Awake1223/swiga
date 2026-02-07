@@ -1,4 +1,4 @@
-﻿namespace Swiga.API.Contracts
+﻿namespace Swiga.API.Contracts.UserProfile
 {
     public record UpdateUserRequest(
         string FirstName,

@@ -1,4 +1,4 @@
-﻿namespace Swiga.API.Contracts
+﻿namespace Swiga.API.Contracts.Registration
 {
     public record RegisterAdminRequest(
         string Email,

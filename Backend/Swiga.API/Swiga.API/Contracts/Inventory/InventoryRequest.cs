@@ -1,6 +1,6 @@
 ﻿using Swiga.Domain.Models;
 
-namespace Swiga.API.Contracts
+namespace Swiga.API.Contracts.Inventory
 {
     public record InventoryRequest(
         string Name,

@@ -1,4 +1,4 @@
-﻿namespace Swiga.API.Contracts
+﻿namespace Swiga.API.Contracts.Registration
 {
     public record RegistrationResponse(
         Guid UserId,

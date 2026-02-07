@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Swiga.API.Contracts;
+using Swiga.API.Contracts.RentalPoint;
 using Swiga.Application.Services;
 using Swiga.Domain.Abstructions;
 using Swiga.Domain.Models;

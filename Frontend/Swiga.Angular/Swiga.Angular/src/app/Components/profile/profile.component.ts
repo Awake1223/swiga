@@ -1,3 +1,4 @@
+// Components/profile/profile.component.ts - ИСПРАВЛЕННЫЙ
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -8,8 +9,8 @@ import { UserService } from '../../Services/user.service';
   selector: 'app-profile',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './profile.component.html',  // Внешний HTML файл
-  styleUrls: ['./profile.component.css']     // Внешний CSS файл]
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
   user: any = null;
@@ -32,22 +33,32 @@ export class ProfileComponent implements OnInit {
   }
 
   loadUserProfile() {
+    this.isLoading = true;
+    this.error = null;
+
+    // Получаем базовую информацию из AuthService
     const currentUser = this.authService.getCurrentUser();
-    if (currentUser) {
-      this.userService.getUserProfile(currentUser.userId).subscribe({
-        next: (userData) => {
-          this.user = { ...currentUser, ...userData };
-          this.isLoading = false;
-        },
-        error: (error) => {
-          this.error = 'Ошибка загрузки профиля: ' + (error.error?.message || error.message);
-          this.isLoading = false;
+    console.log('Basic user info from AuthService:', currentUser);
+
+    // Получаем полный профиль с сервера
+    this.userService.getProfile().subscribe({
+      next: (profileData) => {
+        console.log('Full profile from API:', profileData);
+        // Объединяем базовую информацию и данные профиля
+        this.user = { ...currentUser, ...profileData };
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading profile:', error);
+        this.error = 'Ошибка загрузки профиля: ' + (error.error?.message || error.message || 'Неизвестная ошибка');
+        this.isLoading = false;
+
+        // Если ошибка 401 (не авторизован), перенаправляем на логин
+        if (error.status === 401) {
+          this.authService.logout();
         }
-      });
-    } else {
-      this.isLoading = false;
-      this.error = 'Пользователь не авторизован';
-    }
+      }
+    });
   }
 
   logout() {
